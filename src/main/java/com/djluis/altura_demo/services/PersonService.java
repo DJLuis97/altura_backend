@@ -6,10 +6,12 @@ package com.djluis.altura_demo.services;
 
 import com.djluis.altura_demo.models.PersonModel;
 import com.djluis.altura_demo.repositories.PersonRepository;
-import java.util.ArrayList;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
 
 /**
  *
@@ -19,10 +21,10 @@ import org.springframework.stereotype.Service;
 public class PersonService {
 
     @Autowired
-    PersonRepository personRepository;
+    private PersonRepository personRepository;
 
-    public ArrayList<PersonModel> index() {
-        return (ArrayList<PersonModel>) personRepository.findAll();
+    public Page<PersonModel> index(Pageable pageable) {
+        return personRepository.findAll(pageable);
     }
 
     public PersonModel store(PersonModel person) {
